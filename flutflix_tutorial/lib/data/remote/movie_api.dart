@@ -6,22 +6,25 @@ class MovieApi extends BaseRemoteSource {
 
   final MovieService service;
 
-  Future<List<Movie>> getTrendingMovies() {
-    return callApiWithErrorParser(service.trendingMovies(Constants.apiKey))
+  Future<List<Movie>> getTrendingMovies({int? page}) {
+    return callApiWithErrorParser(
+            service.trendingMovies(Constants.apiKey, page: page))
         .then((response) {
       return response.data.results;
     });
   }
 
-  Future<List<Movie>> getTopRatedMovies() {
-    return callApiWithErrorParser(service.topRatedMovies(Constants.apiKey))
+  Future<List<Movie>> getTopRatedMovies({int? page}) {
+    return callApiWithErrorParser(
+            service.topRatedMovies(Constants.apiKey, page: page))
         .then((response) {
       return response.data.results;
     });
   }
 
-  Future<List<Movie>> getUpcomingMovies() {
-    return callApiWithErrorParser(service.upcomingMovies(Constants.apiKey))
+  Future<List<Movie>> getUpcomingMovies({int? page}) {
+    return callApiWithErrorParser(
+            service.upcomingMovies(Constants.apiKey, page: page))
         .then((response) {
       return response.data.results;
     });

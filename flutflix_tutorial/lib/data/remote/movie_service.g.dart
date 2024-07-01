@@ -22,9 +22,15 @@ class _MovieService implements MovieService {
 
   @override
   Future<HttpResponse<BaseResponse<Movie>>> trendingMovies(
-      String apiKey) async {
+    String apiKey, {
+    int? page,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'api_key': apiKey};
+    final queryParameters = <String, dynamic>{
+      r'api_key': apiKey,
+      r'page': page,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -54,9 +60,15 @@ class _MovieService implements MovieService {
 
   @override
   Future<HttpResponse<BaseResponse<Movie>>> topRatedMovies(
-      String apiKey) async {
+    String apiKey, {
+    int? page,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'api_key': apiKey};
+    final queryParameters = <String, dynamic>{
+      r'api_key': apiKey,
+      r'page': page,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -86,9 +98,15 @@ class _MovieService implements MovieService {
 
   @override
   Future<HttpResponse<BaseResponse<Movie>>> upcomingMovies(
-      String apiKey) async {
+    String apiKey, {
+    int? page,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'api_key': apiKey};
+    final queryParameters = <String, dynamic>{
+      r'api_key': apiKey,
+      r'page': page,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(

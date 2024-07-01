@@ -10,18 +10,21 @@ abstract class MovieService {
 
   @GET('/trending/all/day')
   Future<HttpResponse<BaseResponse<Movie>>> trendingMovies(
-    @Query('api_key') String apiKey,
-  );
+    @Query('api_key') String apiKey, {
+    @Query('page') int? page,
+  });
 
   @GET('/movie/top_rated')
   Future<HttpResponse<BaseResponse<Movie>>> topRatedMovies(
-    @Query('api_key') String apiKey,
-  );
+    @Query('api_key') String apiKey, {
+    @Query('page') int? page,
+  });
 
   @GET('/movie/upcoming')
   Future<HttpResponse<BaseResponse<Movie>>> upcomingMovies(
-    @Query('api_key') String apiKey,
-  );
+    @Query('api_key') String apiKey, {
+    @Query('page') int? page,
+  });
 
   static MovieService create() {
     final dio = Dio();

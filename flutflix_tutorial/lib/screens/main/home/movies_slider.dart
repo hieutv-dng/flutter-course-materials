@@ -15,18 +15,18 @@ class MoviesSlider extends StatelessWidget {
     return SizedBox(
       height: 200,
       width: double.infinity,
-      child: ListView.separated(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: movies.length,
         itemBuilder: (context, index) {
           final movie = movies[index];
-          return MoviePosterCard(
-            movie: movie,
-            size: const Size(150, 200),
+          return Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: MoviePosterCard(
+              movie: movie,
+              size: const Size(150, 200),
+            ),
           );
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(width: 16);
         },
       ),
     );

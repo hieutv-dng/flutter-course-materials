@@ -1,4 +1,5 @@
 import 'package:flutflix_tutorial/data/index.dart';
+import 'package:flutflix_tutorial/screens/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             return Future.delayed(Duration.zero);
           },
           child: ListView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             children: const [
               _TrendingMovies(),
               SizedBox(height: 32),
@@ -68,7 +69,15 @@ class _TrendingMovies extends GetView<HomeController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Trending Movies', style: TextStyle(fontSize: 24)),
+        ListTile(
+          title: const Text('Trending Movies', style: TextStyle(fontSize: 24)),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MovieListPage(),
+            ),
+          ),
+        ),
         const SizedBox(height: 32),
         Obx(() {
           if (controller.trendingState.value.isLoading) {
