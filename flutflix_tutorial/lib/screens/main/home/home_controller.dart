@@ -4,21 +4,19 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   final _movieApi = MovieApi(service: MovieService.create());
 
-  final isTrendingLoading = false.obs;
+  final trendingState = const BaseState.initial().obs;
   final trendingMovies = <Movie>[].obs;
 
-  final isTopRateLoading = false.obs;
+  final topRatedState = const BaseState.initial().obs;
   final topRatedMovies = <Movie>[].obs;
 
-  final isUpcommingLoading = false.obs;
+  final upcomingState = const BaseState.initial().obs;
   final upcomingMovies = <Movie>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    getTrendingMovies();
-    getTopRatedMovies();
-    getUpcomingMovies();
+    fetchData();
     print('HomeController onInit called');
   }
 
@@ -34,36 +32,54 @@ class HomeController extends GetxController {
     print('HomeController onClose called');
   }
 
+  void fetchData() {
+    getTrendingMovies();
+    getTopRatedMovies();
+    getUpcomingMovies();
+  }
+
   void getTrendingMovies() async {
-    isTrendingLoading.value = true;
+    trendingState.value =
+        trendingState.value.copyWith(status: BaseStatus.loading);
     try {
       trendingMovies.value = await _movieApi.getTrendingMovies();
+      trendingState.value =
+          trendingState.value.copyWith(status: BaseStatus.success);
     } catch (e) {
-      Get.snackbar('Error', e.toString());
-    } finally {
-      isTrendingLoading.value = false;
+      trendingState.value = trendingState.value.copyWith(
+        status: BaseStatus.failure,
+        errorMessage: e.toString(),
+      );
     }
   }
 
   void getTopRatedMovies() async {
-    isTopRateLoading.value = true;
+    topRatedState.value =
+        topRatedState.value.copyWith(status: BaseStatus.loading);
     try {
       topRatedMovies.value = await _movieApi.getTopRatedMovies();
+      topRatedState.value =
+          topRatedState.value.copyWith(status: BaseStatus.success);
     } catch (e) {
-      Get.snackbar('Error', e.toString());
-    } finally {
-      isTopRateLoading.value = false;
+      topRatedState.value = topRatedState.value.copyWith(
+        status: BaseStatus.failure,
+        errorMessage: e.toString(),
+      );
     }
   }
 
   void getUpcomingMovies() async {
-    isUpcommingLoading.value = true;
+    upcomingState.value =
+        upcomingState.value.copyWith(status: BaseStatus.loading);
     try {
       upcomingMovies.value = await _movieApi.getUpcomingMovies();
+      upcomingState.value =
+          upcomingState.value.copyWith(status: BaseStatus.success);
     } catch (e) {
-      Get.snackbar('Error', e.toString());
-    } finally {
-      isUpcommingLoading.value = false;
+      upcomingState.value = upcomingState.value.copyWith(
+        status: BaseStatus.failure,
+        errorMessage: e.toString(),
+      );
     }
   }
 }

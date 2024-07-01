@@ -1,6 +1,7 @@
 import 'package:flutflix_tutorial/core/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'firebase_options.dart';
 
 import 'screens/main/main_page.dart';
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutflix',
       theme: myThemeData,
       home: const MainPage(),

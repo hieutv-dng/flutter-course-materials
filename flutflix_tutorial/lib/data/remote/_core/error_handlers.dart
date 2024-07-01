@@ -40,10 +40,10 @@ Exception _parseDioErrorResponse(DioException dioError) {
 
   try {
     if (statusCode == -1 || statusCode == HttpStatus.ok) {
-      statusCode = dioError.response?.data['statusCode'];
+      statusCode = dioError.response?.data['status_code'];
     }
-    status = dioError.response?.data['status'];
-    serverMessage = dioError.response?.data['message'];
+    status = dioError.response?.data['status_code'].toString();
+    serverMessage = dioError.response?.data['status_message'];
   } catch (e, _) {
     serverMessage = 'Something went wrong. Please try again later.';
   }

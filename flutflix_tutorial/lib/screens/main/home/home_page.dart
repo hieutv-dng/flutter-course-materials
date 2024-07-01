@@ -1,9 +1,9 @@
-import 'package:flutflix_tutorial/data/models/movie.dart';
-import 'package:flutflix_tutorial/screens/index.dart';
+import 'package:flutflix_tutorial/data/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'home_controller.dart';
+import 'movies_carousel_slider.dart';
 import 'movies_slider.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,12 +30,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: Image.asset(
+          'assets/flutflix.png',
+          fit: BoxFit.cover,
+          height: 40,
+        ),
+      ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            children: [
+        child: RefreshIndicator(
+          onRefresh: () {
+            _controller.fetchData();
+            return Future.delayed(Duration.zero);
+          },
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: const [
               _TrendingMovies(),
               SizedBox(height: 32),
               _TopRatedMovies(),
@@ -60,10 +71,13 @@ class _TrendingMovies extends GetView<HomeController> {
         const Text('Trending Movies', style: TextStyle(fontSize: 24)),
         const SizedBox(height: 32),
         Obx(() {
-          if (controller.isTrendingLoading.value) {
-            return const CircularProgressIndicator();
+          if (controller.trendingState.value.isLoading) {
+            return const Center(child: CircularProgressIndicator());
           }
-          return MoviesSlider(movies: controller.trendingMovies);
+          if (controller.trendingState.value.isFailure) {
+            return Text(controller.trendingState.value.errorMessage ?? '');
+          }
+          return MoviesCarouselSlider(movies: controller.trendingMovies);
         }),
       ],
     );
@@ -81,8 +95,11 @@ class _TopRatedMovies extends GetView<HomeController> {
         const Text('Top Rated Movies', style: TextStyle(fontSize: 24)),
         const SizedBox(height: 32),
         Obx(() {
-          if (controller.isTopRateLoading.value) {
-            return const CircularProgressIndicator();
+          if (controller.topRatedState.value.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (controller.topRatedState.value.isFailure) {
+            return Text(controller.topRatedState.value.errorMessage ?? '');
           }
           return MoviesSlider(movies: controller.topRatedMovies);
         }),
@@ -102,8 +119,11 @@ class _UpcomingMovies extends GetView<HomeController> {
         const Text('Upcoming Movies', style: TextStyle(fontSize: 24)),
         const SizedBox(height: 32),
         Obx(() {
-          if (controller.isUpcommingLoading.value) {
-            return const CircularProgressIndicator();
+          if (controller.upcomingState.value.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (controller.upcomingState.value.isFailure) {
+            return Text(controller.upcomingState.value.errorMessage ?? '');
           }
           return MoviesSlider(movies: controller.upcomingMovies);
         }),
