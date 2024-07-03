@@ -1,4 +1,7 @@
+import 'package:flutflix_tutorial/data/index.dart';
+import 'package:flutflix_tutorial/screens/index.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'home/home_page.dart';
 import 'profile/profile_page.dart';
@@ -21,9 +24,16 @@ class _MainPageState extends State<MainPage> {
         builder: (context, index, child) {
           return IndexedStack(
             index: index,
-            children: const [
-              HomePage(),
-              ProfilePage(),
+            children: [
+              const HomePage(),
+              Obx(() {
+                final user = Get.find<AuthService>().user;
+                if (user != null) {
+                  return const ProfilePage();
+                } else {
+                  return const LoginPage();
+                }
+              }),
             ],
           );
         },

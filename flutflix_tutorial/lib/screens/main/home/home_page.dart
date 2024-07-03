@@ -74,7 +74,8 @@ class _TrendingMovies extends GetView<HomeController> {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const MovieListPage(),
+              builder: (context) =>
+                  const MovieListPage(type: MovieListType.trending),
             ),
           ),
         ),
@@ -101,7 +102,16 @@ class _TopRatedMovies extends GetView<HomeController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Top Rated Movies', style: TextStyle(fontSize: 24)),
+        ListTile(
+          title: const Text('Top Rated Movies', style: TextStyle(fontSize: 24)),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const MovieListPage(type: MovieListType.topRated),
+            ),
+          ),
+        ),
         const SizedBox(height: 32),
         Obx(() {
           if (controller.topRatedState.value.isLoading) {
@@ -125,7 +135,16 @@ class _UpcomingMovies extends GetView<HomeController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Upcoming Movies', style: TextStyle(fontSize: 24)),
+        ListTile(
+          title: const Text('Upcoming Movies', style: TextStyle(fontSize: 24)),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const MovieListPage(type: MovieListType.upcoming),
+            ),
+          ),
+        ),
         const SizedBox(height: 32),
         Obx(() {
           if (controller.upcomingState.value.isLoading) {

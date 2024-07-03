@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutflix_tutorial/data/index.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -17,6 +18,15 @@ class MovieDetailPage extends StatefulWidget {
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
   final ValueNotifier<bool> _isLiked = ValueNotifier(false);
+
+  @override
+  void initState() {
+    super.initState();
+    Get.find<FavoriteService>().isFavorite(widget.movie).then((value) {
+      _isLiked.value = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +88,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     );
                   },
                   onTap: (liked) async {
-                    _isLiked.value = !liked;
-                    return !liked;
+                    if (liked) {
+                      return Get.find<FavoriteService>()
+                          .removeFavorite(widget.movie);
+                    } else {
+                      return Get.find<FavoriteService>()
+                          .addFavorite(widget.movie);
+                    }
                   },
                 );
               }),

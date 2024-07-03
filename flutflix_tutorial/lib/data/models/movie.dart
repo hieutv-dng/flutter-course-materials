@@ -6,6 +6,23 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'movie.freezed.dart';
 part 'movie.g.dart';
 
+enum MovieListType {
+  trending,
+  topRated,
+  upcoming;
+
+  String get name {
+    switch (this) {
+      case MovieListType.trending:
+        return 'Trending';
+      case MovieListType.topRated:
+        return 'Top Rated';
+      case MovieListType.upcoming:
+        return 'Upcoming';
+    }
+  }
+}
+
 @freezed
 class Movie with _$Movie {
   factory Movie({

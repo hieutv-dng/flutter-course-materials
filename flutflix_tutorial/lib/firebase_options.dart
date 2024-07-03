@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD6kqaKmD-v-GCoevqsyzn0nR0igschI0M',
-    appId: '1:445394098434:android:d8a4e8c00d51e0d1b5ca1b',
-    messagingSenderId: '445394098434',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
     projectId: 'flutflix-9a134',
     storageBucket: 'flutflix-9a134.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCQG4KhA2uE0zB35Pix7Mc6nM6L31JgZUI',
-    appId: '1:445394098434:ios:f6aac10e7c6af080b5ca1b',
-    messagingSenderId: '445394098434',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
     projectId: 'flutflix-9a134',
     storageBucket: 'flutflix-9a134.appspot.com',
+    iosClientId: '',
     iosBundleId: 'com.example.flutflixTutorial',
   );
 }

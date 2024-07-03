@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class MovieListController extends GetxController {
+  MovieListController(this.type);
+  final MovieListType type;
+
   final _movieApi = MovieApi(service: MovieService.create());
   final state = const BaseState.initial().obs;
 
@@ -21,7 +24,19 @@ class MovieListController extends GetxController {
   void fetchData(int pageKey) async {
     state.value = state.value.copyWith(status: BaseStatus.loading);
     try {
-      final movies = await _movieApi.getTrendingMovies(page: pageKey);
+      List<Movie> movies = [];
+      switch (type) {
+        case MovieListType.trending:
+          movies = await _movieApi.getTrendingMovies(page: pageKey);
+          break;
+        case MovieListType.topRated:
+          movies = await _movieApi.getTopRatedMovies(page: pageKey);
+          break;
+        case MovieListType.upcoming:
+          movies = await _movieApi.getUpcomingMovies(page: pageKey);
+          break;
+      }
+
       if (movies.isNotEmpty) {
         pagingController.appendPage(movies, pageKey + 1);
       } else {
